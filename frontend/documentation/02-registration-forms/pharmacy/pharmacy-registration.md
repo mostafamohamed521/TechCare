@@ -1,16 +1,18 @@
-Pharmacy Registration – Frontend Specification
+# Pharmacy Registration – Frontend Specification
 
 File: frontend/documentation/02-registration-forms/pharmacy/pharmacy-registration.md
 Responsible: Alaa
 Module: Pharmacy Registration
 Application: TechCare
 
-1. Overview
+## 1. Overview
+
 
 The Pharmacy Registration module allows a pharmacist or pharmacy representative to register a pharmacy on the TechCare platform.
 
 Unlike individual healthcare-provider registration, pharmacy registration contains both:
 
+```text
 Pharmacist Information
         +
 Pharmacy Information
@@ -24,6 +26,7 @@ Location
 Operating Hours
         +
 Professional Documents
+```
 
 The purpose of this module is to allow verified pharmacies to appear in TechCare search results and provide patients with information about nearby pharmacies and medicine availability.
 
@@ -31,6 +34,7 @@ The registration process is multi-step so that pharmacists do not have to comple
 
 The overall lifecycle is:
 
+```text
 Pharmacy Registration
         ↓
 Registration Submitted
@@ -42,13 +46,16 @@ Admin Review
 Approved / Rejected / Additional Information Required
         ↓
 Pharmacy Activated
+```
 
 The pharmacy must not become an active marketplace/service provider before the required verification process is completed.
 
-2. Ownership
+## 2. Ownership
+
 
 Alaa is responsible for the Pharmacy Registration frontend module.
 
+```text
 Alaa
  │
  ├── Pharmacy Registration Pages
@@ -65,13 +72,16 @@ Alaa
  ├── Pharmacy Registration JavaScript
  ├── Pharmacy Registration CSS
  └── Pharmacy API Integration
+```
 
 Alaa does not own shared Authentication functionality.
 
-3. Frontend Structure
+## 3. Frontend Structure
+
 
 Recommended structure:
 
+```text
 frontend/
 │
 ├── pages/
@@ -101,7 +111,11 @@ frontend/
 │
 └── assets/
     └── pharmacy/
-4. Complete Registration Flow
+```
+
+## 4. Complete Registration Flow
+
+```text
 ┌─────────────────────────────┐
 │          Register            │
 └─────────────┬───────────────┘
@@ -149,21 +163,25 @@ frontend/
 ┌─────────────────────────────┐
 │     Pending Verification     │
 └─────────────────────────────┘
-5. Registration Steps
-Step	Page	File
-1	Pharmacist Account	pharmacy-register.html
-2	Pharmacist Information	pharmacist-info.html
-3	Pharmacy Information	pharmacy-info.html
-4	Branch Information	branch-info.html
-5	Medicines & Services	medicine-services.html
-6	Location & Hours	location-hours.html
-7	Documents	pharmacy-documents.html
-8	Review	pharmacy-review.html
-9	Success	pharmacy-registration-success.html
+```
 
+## 5. Registration Steps
+
+| Step | Page | File |
+|---|---|---|
+| 1 | Pharmacist Account | pharmacy-register.html |
+| 2 | Pharmacist Information | pharmacist-info.html |
+| 3 | Pharmacy Information | pharmacy-info.html |
+| 4 | Branch Information | branch-info.html |
+| 5 | Medicines & Services | medicine-services.html |
+| 6 | Location & Hours | location-hours.html |
+| 7 | Documents | pharmacy-documents.html |
+| 8 | Review | pharmacy-review.html |
+| 9 | Success | pharmacy-registration-success.html |
 OTP verification is handled by the centralized Authentication module.
 
-6. Important Pharmacy Concept
+## 6. Important Pharmacy Concept
+
 
 The frontend must distinguish between:
 
@@ -179,22 +197,26 @@ The pharmacy is the business/service entity.
 
 A pharmacy may later contain:
 
+```text
 Pharmacy
    │
    ├── Branch 1
    ├── Branch 2
    └── Branch 3
+```
 
 The initial registration should establish the primary pharmacy profile and its initial branch.
 
 Additional branches can later be managed from the Pharmacy Dashboard if that feature is enabled.
 
-7. Registration Progress Indicator
+## 7. Registration Progress Indicator
+
 
 The page should show the current progress.
 
 Example:
 
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │ Pharmacy Registration                                           │
 │                                                                 │
@@ -204,20 +226,25 @@ Example:
 │                                                                 │
 │ Step 3 of 8                                                     │
 └─────────────────────────────────────────────────────────────────┘
+```
 
 State meanings:
 
 ● Completed
 ◉ Current
 ○ Upcoming
-8. Step 1 – Pharmacy Account Registration
+
+## 8. Step 1 – Pharmacy Account Registration
+
 Page
 frontend/pages/pharmacy/registration/pharmacy-register.html
 Purpose
 
 This page creates the account used by the pharmacist/pharmacy representative.
 
-8.1 UI Sketch
+### 8.1 UI Sketch
+
+```text
 ┌──────────────────────────────────────────────────┐
 │            Create Pharmacy Account               │
 ├──────────────────────────────────────────────────┤
@@ -241,15 +268,20 @@ This page creates the account used by the pharmacist/pharmacy representative.
 │                                                  │
 │                    [ Continue ]                  │
 └──────────────────────────────────────────────────┘
-9. Account Fields
-Field	Type	Required
-Full Name	Text	Yes
-Email Address	Email	Yes
-Phone Number	Tel	Yes
-Password	Password	Yes
-Confirm Password	Password	Yes
-Terms & Privacy Agreement	Checkbox	Yes
-10. Account Validation
+```
+
+## 9. Account Fields
+
+| Field | Type | Required |
+|---|---|---|
+| Full Name | Text | Yes |
+| Email Address | Email | Yes |
+| Phone Number | Tel | Yes |
+| Password | Password | Yes |
+| Confirm Password | Password | Yes |
+| Terms & Privacy Agreement | Checkbox | Yes |
+## 10. Account Validation
+
 
 The frontend must validate:
 
@@ -262,18 +294,26 @@ Terms Agreement
 
 Example:
 
+```text
 ⚠ Email address is required.
+```
 
+```text
 ⚠ Please enter a valid phone number.
+```
 
+```text
 ⚠ Passwords do not match.
+```
 
 The backend remains responsible for uniqueness and authoritative validation.
 
-11. Shared OTP Verification
+## 11. Shared OTP Verification
+
 
 The pharmacy account follows the shared Authentication flow.
 
+```text
 Pharmacy Registration
        ↓
 Account Created
@@ -283,20 +323,25 @@ OTP Verification
 Verification Successful
        ↓
 Continue Pharmacy Registration
+```
 
 The Pharmacy module does not implement a separate OTP system.
 
 Shared documentation:
 
 frontend/documentation/01-authentication/otp-verification.md
-12. Step 2 – Pharmacist Information
+
+## 12. Step 2 – Pharmacist Information
+
 Page
 frontend/pages/pharmacy/registration/pharmacist-info.html
 Purpose
 
 Collect the professional identity of the pharmacist responsible for the pharmacy.
 
-12.1 UI Sketch
+### 12.1 UI Sketch
+
+```text
 ┌────────────────────────────────────────────────────┐
 │              Pharmacist Information               │
 ├────────────────────────────────────────────────────┤
@@ -330,21 +375,27 @@ Collect the professional identity of the pharmacist responsible for the pharmacy
 │                                                    │
 │ [ Back ]                           [ Continue ]    │
 └────────────────────────────────────────────────────┘
-13. Pharmacist Information Fields
-Field	Type	Required
-First Name	Text	Yes
-Middle Name	Text	No
-Last Name	Text	Yes
-Date of Birth	Date	Yes
-Gender	Select/Radio	Yes
-National ID Number	Text	Yes
-Pharmacist License Number	Text	Yes
-Qualification	Select	Yes
-Years of Experience	Number	No
-14. Pharmacist Validation
+```
+
+## 13. Pharmacist Information Fields
+
+| Field | Type | Required |
+|---|---|---|
+| First Name | Text | Yes |
+| Middle Name | Text | No |
+| Last Name | Text | Yes |
+| Date of Birth | Date | Yes |
+| Gender | Select/Radio | Yes |
+| National ID Number | Text | Yes |
+| Pharmacist License Number | Text | Yes |
+| Qualification | Select | Yes |
+| Years of Experience | Number | No |
+## 14. Pharmacist Validation
+
 
 Examples:
 
+```text
 First Name → Required
 Last Name → Required
 Date of Birth → Valid date
@@ -352,17 +403,21 @@ National ID → Valid format
 License Number → Required
 Qualification → Required
 Experience → Non-negative
+```
 
 Backend must check whether the license or national ID is already associated with an existing account where applicable.
 
-15. Step 3 – Pharmacy Information
+## 15. Step 3 – Pharmacy Information
+
 Page
 frontend/pages/pharmacy/registration/pharmacy-info.html
 Purpose
 
 Collect the pharmacy's business information.
 
-15.1 UI Sketch
+### 15.1 UI Sketch
+
+```text
 ┌────────────────────────────────────────────────────┐
 │                Pharmacy Information                │
 ├────────────────────────────────────────────────────┤
@@ -396,17 +451,22 @@ Collect the pharmacy's business information.
 │                                                    │
 │ [ Back ]                           [ Continue ]    │
 └────────────────────────────────────────────────────┘
-16. Pharmacy Information Fields
-Field	Type	Required
-Pharmacy Name	Text	Yes
-Pharmacy Type	Select	Yes
-Commercial Registration Number	Text	Business Rule
-Pharmacy License Number	Text	Yes
-Pharmacy Phone	Tel	Yes
-Pharmacy Email	Email	No
-Pharmacy Description	Textarea	No
-Pharmacy Logo	File	No
-17. Pharmacy Type
+```
+
+## 16. Pharmacy Information Fields
+
+| Field | Type | Required |
+|---|---|---|
+| Pharmacy Name | Text | Yes |
+| Pharmacy Type | Select | Yes |
+| Commercial Registration Number | Text | Business Rule |
+| Pharmacy License Number | Text | Yes |
+| Pharmacy Phone | Tel | Yes |
+| Pharmacy Email | Email | No |
+| Pharmacy Description | Textarea | No |
+| Pharmacy Logo | File | No |
+## 17. Pharmacy Type
+
 
 The interface may support categories such as:
 
@@ -417,7 +477,8 @@ Other
 
 The final taxonomy should be controlled by the backend/business configuration.
 
-18. Pharmacy Name Validation
+## 18. Pharmacy Name Validation
+
 
 The frontend should ensure:
 
@@ -432,8 +493,12 @@ Pharmacy Name *
 
 [____________________________]
 
+```text
 ⚠ Pharmacy name is required.
-19. Step 4 – Branch Information
+```
+
+## 19. Step 4 – Branch Information
+
 Page
 frontend/pages/pharmacy/registration/branch-info.html
 Purpose
@@ -442,7 +507,9 @@ Defines the initial pharmacy branch.
 
 This is important because patients will later search for pharmacies based on branch location.
 
-19.1 UI Sketch
+### 19.1 UI Sketch
+
+```text
 ┌──────────────────────────────────────────────────────┐
 │                 Primary Branch                       │
 ├──────────────────────────────────────────────────────┤
@@ -474,16 +541,21 @@ This is important because patients will later search for pharmacies based on bra
 │                                                      │
 │ [ Back ]                           [ Continue ]      │
 └──────────────────────────────────────────────────────┘
-20. Branch Fields
-Field	Type	Required
-Branch Name	Text	Yes
-Branch Phone	Tel	Yes
-Governorate	Select	Yes
-City	Select	Yes
-Detailed Address	Textarea	Yes
-Latitude	Number	Conditional
-Longitude	Number	Conditional
-21. Branch Location
+```
+
+## 20. Branch Fields
+
+| Field | Type | Required |
+|---|---|---|
+| Branch Name | Text | Yes |
+| Branch Phone | Tel | Yes |
+| Governorate | Select | Yes |
+| City | Select | Yes |
+| Detailed Address | Textarea | Yes |
+| Latitude | Number | Conditional |
+| Longitude | Number | Conditional |
+## 21. Branch Location
+
 
 The branch location is especially important for:
 
@@ -499,7 +571,8 @@ The frontend may allow:
 
 which uses the browser's geolocation capability.
 
-22. Step 5 – Medicines & Services
+## 22. Step 5 – Medicines & Services
+
 Page
 frontend/pages/pharmacy/registration/medicine-services.html
 Purpose
@@ -510,7 +583,9 @@ The registration form should not require the pharmacist to manually enter the en
 
 The registration should establish the pharmacy's supported categories and enable inventory management later.
 
-22.1 UI Sketch
+### 22.1 UI Sketch
+
+```text
 ┌──────────────────────────────────────────────────────┐
 │             Medicines & Services                     │
 ├──────────────────────────────────────────────────────┤
@@ -541,17 +616,23 @@ The registration should establish the pharmacy's supported categories and enable
 │                                                      │
 │ [ Back ]                           [ Continue ]      │
 └──────────────────────────────────────────────────────┘
-23. Services Fields
-Field	Type	Required
-Services Provided	Multi-select	Yes
-Medicine Availability Mode	Radio	Yes
-Home Delivery	Radio	Yes
-Delivery Radius	Number	Conditional
-Service Description	Textarea	No
-24. Medicine Availability Concept
+```
+
+## 23. Services Fields
+
+| Field | Type | Required |
+|---|---|---|
+| Services Provided | Multi-select | Yes |
+| Medicine Availability Mode | Radio | Yes |
+| Home Delivery | Radio | Yes |
+| Delivery Radius | Number | Conditional |
+| Service Description | Textarea | No |
+## 24. Medicine Availability Concept
+
 
 The platform's pharmacy search functionality may later allow:
 
+```text
 Patient
    ↓
 Search Medicine
@@ -561,9 +642,11 @@ Nearby Pharmacies
 Branch
    ↓
 Availability
+```
 
 Example UI concept:
 
+```text
 ┌──────────────────────────────────────────────┐
 │ Medicine Availability                        │
 ├──────────────────────────────────────────────┤
@@ -573,12 +656,14 @@ Example UI concept:
 │ Inventory Management                         │
 │ [ Enabled ]                                  │
 └──────────────────────────────────────────────┘
+```
 
 The registration form should not become an inventory-management system.
 
 Inventory operations belong to the Pharmacy Dashboard.
 
-25. Home Delivery
+## 25. Home Delivery
+
 
 When Home Delivery is enabled:
 
@@ -599,17 +684,23 @@ the radius field may be hidden or disabled.
 
 Validation:
 
+```text
 Home Delivery = Yes
         +
 Delivery Radius > 0
-26. Step 6 – Location & Operating Hours
+```
+
+## 26. Step 6 – Location & Operating Hours
+
 Page
 frontend/pages/pharmacy/registration/location-hours.html
 Purpose
 
 Defines the branch location and operating schedule.
 
-26.1 UI Sketch
+### 26.1 UI Sketch
+
+```text
 ┌─────────────────────────────────────────────────────────┐
 │           Location & Operating Hours                    │
 ├─────────────────────────────────────────────────────────┤
@@ -647,12 +738,16 @@ Defines the branch location and operating schedule.
 │                                                         │
 │ [ Back ]                              [ Continue ]      │
 └─────────────────────────────────────────────────────────┘
-27. Operating Hours
+```
+
+## 27. Operating Hours
+
 
 The pharmacy must specify its operating schedule.
 
 Example:
 
+```text
 Saturday   ✓
 Sunday     ✓
 Monday     ✓
@@ -660,22 +755,29 @@ Tuesday    ✓
 Wednesday  ✓
 Thursday   ✓
 Friday     ✓
+```
 
 Opening: 09:00 AM
 Closing: 11:00 PM
-28. 24-Hour Pharmacy
+
+## 28. 24-Hour Pharmacy
+
 
 The UI may support:
 
+```text
 Open 24 Hours
 [✓]
+```
 
 When enabled, regular opening and closing time fields may be disabled.
 
 Example:
 
+```text
 Open 24 Hours
 ☑ Yes
+```
 
 Opening Time
 [ Disabled ]
@@ -685,13 +787,18 @@ Closing Time
 
 Validation:
 
+```text
 24 Hours = Yes
         ↓
 No standard opening/closing validation required
-29. Operating Hours Validation
+```
+
+## 29. Operating Hours Validation
+
 
 When not operating 24 hours:
 
+```text
 At least one day selected
         +
 Opening time valid
@@ -699,6 +806,7 @@ Opening time valid
 Closing time valid
         +
 Opening < Closing
+```
 
 Invalid:
 
@@ -707,10 +815,12 @@ Closing: 08:00 AM
 
 The UI must provide a clear message.
 
-30. Location Interaction
+## 30. Location Interaction
+
 
 Conceptual flow:
 
+```text
 [ Use Current Location ]
             ↓
     Browser Permission
@@ -722,6 +832,7 @@ Conceptual flow:
       Form State
             ↓
        Backend API
+```
 
 Possible states:
 
@@ -733,16 +844,22 @@ Unsupported Browser
 
 Example:
 
+```text
 ⚠ Unable to access your current location.
 Please enter the branch address manually.
-31. Step 7 – Pharmacy Documents
+```
+
+## 31. Step 7 – Pharmacy Documents
+
 Page
 frontend/pages/pharmacy/registration/pharmacy-documents.html
 Purpose
 
 Collect documents required for pharmacy and pharmacist verification.
 
-31.1 UI Sketch
+### 31.1 UI Sketch
+
+```text
 ┌──────────────────────────────────────────────────────┐
 │             Pharmacy Verification Documents          │
 ├──────────────────────────────────────────────────────┤
@@ -775,7 +892,10 @@ Collect documents required for pharmacy and pharmacist verification.
 │                                                      │
 │ [ Back ]                           [ Continue ]      │
 └──────────────────────────────────────────────────────┘
-32. Document Requirements
+```
+
+## 32. Document Requirements
+
 
 Suggested document model:
 
@@ -791,7 +911,8 @@ Additional Supporting Document	No
 
 The final required/optional status must follow the backend verification rules.
 
-33. Document Upload Component
+## 33. Document Upload Component
+
 
 Each file should show:
 
@@ -803,6 +924,7 @@ Remove / Replace
 
 Example:
 
+```text
 ┌────────────────────────────────────────────┐
 │ pharmacy_license.pdf                       │
 │ 2.1 MB                                     │
@@ -810,15 +932,19 @@ Example:
 │ ✓ Uploaded successfully                   │
 │                               [ Remove ]   │
 └────────────────────────────────────────────┘
+```
 
 During upload:
 
 Uploading...
 ██████████████░░░░
-34. File Validation
+
+## 34. File Validation
+
 
 Before upload:
 
+```text
 File Selected
      ↓
 File Type
@@ -828,6 +954,7 @@ File Extension
 File Size
      ↓
 Upload
+```
 
 Example accepted formats:
 
@@ -838,19 +965,24 @@ PNG
 
 Example:
 
+```text
 ⚠ Unsupported file type.
 Please upload a PDF, JPG, JPEG, or PNG file.
+```
 
 The backend must perform final validation.
 
-35. Step 8 – Review & Submit
+## 35. Step 8 – Review & Submit
+
 Page
 frontend/pages/pharmacy/registration/pharmacy-review.html
 Purpose
 
 Displays a complete summary of the registration before submission.
 
-35.1 UI Sketch
+### 35.1 UI Sketch
+
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │              Review Pharmacy Registration                  │
 ├─────────────────────────────────────────────────────────────┤
@@ -896,12 +1028,16 @@ Displays a complete summary of the registration before submission.
 │                                                             │
 │ [ Back ]                 [ Submit Registration ]            │
 └─────────────────────────────────────────────────────────────┘
-36. Review Page Rules
+```
+
+## 36. Review Page Rules
+
 
 The user must be able to edit each major section.
 
 Example:
 
+```text
 Review
   ↓
 [ Edit Pharmacy ]
@@ -911,10 +1047,12 @@ Pharmacy Information
 Update
   ↓
 Review
+```
 
 Previously entered data must remain available.
 
-37. Sensitive Information
+## 37. Sensitive Information
+
 
 Sensitive data should be masked where practical.
 
@@ -931,7 +1069,8 @@ LIC-****-8221
 
 Uploaded documents should be represented by filename and status instead of unnecessary full document exposure.
 
-38. Final Confirmation
+## 38. Final Confirmation
+
 
 Before final submission:
 
@@ -940,10 +1079,12 @@ Before final submission:
 
 The Submit button should not be enabled until confirmation is completed.
 
-39. Final Submission
+## 39. Final Submission
+
 
 Flow:
 
+```text
 Submit
   ↓
 Validate All Data
@@ -955,7 +1096,10 @@ Show Loading
 Send Registration
   ↓
 Success / Error
-40. Submission States
+```
+
+## 40. Submission States
+
 Normal
 [ Submit Registration ]
 Loading
@@ -965,10 +1109,14 @@ Disabled
 
 The button must be disabled while submission is in progress.
 
-41. Pharmacy Registration Success
+## 41. Pharmacy Registration Success
+
 Page
 frontend/pages/pharmacy/registration/pharmacy-registration-success.html
-41.1 UI Sketch
+
+### 41.1 UI Sketch
+
+```text
 ┌───────────────────────────────────────────────────┐
 │                                                   │
 │                    ✓                              │
@@ -990,22 +1138,27 @@ frontend/pages/pharmacy/registration/pharmacy-registration-success.html
 │                  [ Go to Login ]                  │
 │                                                   │
 └───────────────────────────────────────────────────┘
+```
 
 The Registration ID shown is illustrative.
 
-42. Post-Registration Behavior
+## 42. Post-Registration Behavior
+
 
 After successful submission:
 
+```text
 Submitted
     ↓
 Pending Verification
     ↓
 Go to Login
+```
 
 The pharmacy must not immediately become searchable as a verified pharmacy unless the backend indicates that it is approved and active.
 
-43. Verification Status
+## 43. Verification Status
+
 
 Possible statuses:
 
@@ -1017,6 +1170,7 @@ SUSPENDED
 
 Example:
 
+```text
 ┌──────────────────────────────────────────────┐
 │ Pharmacy Verification                        │
 │                                              │
@@ -1026,10 +1180,14 @@ Example:
 │                                              │
 │ Status: PENDING_VERIFICATION                 │
 └──────────────────────────────────────────────┘
-44. Registration State
+```
+
+## 44. Registration State
+
 
 The frontend may maintain the form as:
 
+```text
 const pharmacyRegistration = {
     account: {},
     pharmacist: {},
@@ -1040,45 +1198,62 @@ const pharmacyRegistration = {
     operatingHours: {},
     documents: {}
 };
+```
 
 Each step updates only its own section.
 
 Example:
 
+```text
 Account
    ↓
 account{}
+```
 
+```text
 Pharmacist
    ↓
 pharmacist{}
+```
 
+```text
 Pharmacy
    ↓
 pharmacy{}
+```
 
+```text
 Branch
    ↓
 branch{}
+```
 
+```text
 Services
    ↓
 services{}
+```
 
 At submission:
 
+```text
 All Sections
       ↓
 Complete Registration Payload
       ↓
 ASP.NET Core API
-45. Validation Strategy
+```
+
+## 45. Validation Strategy
+
 
 Two validation layers must exist:
 
+```text
 Frontend Validation
         +
 Backend Validation
+```
 
 Frontend validation improves usability.
 
@@ -1086,7 +1261,8 @@ Backend validation is authoritative.
 
 The frontend must never be treated as a security boundary.
 
-46. Important Pharmacy Validation
+## 46. Important Pharmacy Validation
+
 Pharmacy Name
 Required
 Valid length
@@ -1111,12 +1287,15 @@ At least one day
 Valid opening time
 +
 Valid closing time
-47. Dynamic Fields
+
+## 47. Dynamic Fields
+
 
 The pharmacy registration form contains conditional sections.
 
 Example:
 
+```text
 Home Delivery
       │
       ├── No → Hide Delivery Radius
@@ -1124,45 +1303,58 @@ Home Delivery
       └── Yes
             ↓
       Show Delivery Radius
+```
 
 Another example:
 
+```text
 Open 24 Hours
       │
       ├── Yes → Disable Opening / Closing Time
       │
       └── No → Require Opening / Closing Time
+```
 
 This creates a cleaner user experience.
 
-48. Dependent Dropdowns
+## 48. Dependent Dropdowns
+
 
 Governorate and City should be dependent.
 
 Flow:
 
+```text
 Select Governorate
         ↓
 Load Cities
         ↓
 Select City
+```
 
 Example:
 
+```text
 Governorate
 [ Dakahlia ▼ ]
+```
 
 City
 [ Loading... ]
 
+```text
         ↓
+```
 
+```text
 City
 [ Mansoura ▼ ]
+```
 
 The frontend should not display invalid cities for the selected governorate.
 
-49. Error Handling
+## 49. Error Handling
+
 
 The frontend must handle:
 
@@ -1178,6 +1370,7 @@ Unexpected Error
 
 Example:
 
+```text
 ┌───────────────────────────────────────────┐
 │ Unable to submit registration.             │
 │                                           │
@@ -1186,7 +1379,10 @@ Example:
 │                                           │
 │               [ Try Again ]                │
 └───────────────────────────────────────────┘
-50. Field-Level API Errors
+```
+
+## 50. Field-Level API Errors
+
 
 Example backend response:
 
@@ -1199,11 +1395,14 @@ Pharmacy License Number *
 
 [ LIC-123456________________ ]
 
+```text
 ⚠ This pharmacy license is already registered.
+```
 
 Errors should be attached to the correct field whenever possible.
 
-51. Step Navigation
+## 51. Step Navigation
+
 
 Each step:
 
@@ -1215,6 +1414,7 @@ Review:
 
 Logic:
 
+```text
 Continue
    ↓
 Validate Current Step
@@ -1224,12 +1424,16 @@ Valid?
 Yes              No
  ↓                ↓
 Next Step       Show Errors
-52. Form Data Preservation
+```
+
+## 52. Form Data Preservation
+
 
 Moving backward must not erase data.
 
 Example:
 
+```text
 Pharmacy Information
         ↓
 Branch Information
@@ -1239,10 +1443,12 @@ Medicines
 Back
         ↓
 Branch Information
+```
 
 Previously entered values should remain populated.
 
-53. Responsive Design
+## 53. Responsive Design
+
 
 The Pharmacy Registration frontend must support:
 
@@ -1253,6 +1459,7 @@ Mobile
 
 Desktop:
 
+```text
 ┌──────────────────────────────────────────────┐
 │ Pharmacy Information                         │
 │                                              │
@@ -1260,9 +1467,11 @@ Desktop:
 │ [____________]      [____________]            │
 │                                              │
 └──────────────────────────────────────────────┘
+```
 
 Mobile:
 
+```text
 ┌────────────────────────────┐
 │ Pharmacy Information       │
 │                            │
@@ -1274,10 +1483,12 @@ Mobile:
 │                            │
 │ [ Continue ]               │
 └────────────────────────────┘
+```
 
 No horizontal scrolling should be required on normal mobile screens.
 
-54. Accessibility
+## 54. Accessibility
+
 
 The pharmacy registration interface must support:
 
@@ -1293,16 +1504,22 @@ Sufficient Contrast
 
 Example:
 
+```text
 <label for="pharmacyName">
     Pharmacy Name
 </label>
+```
 
+```text
 <input
     id="pharmacyName"
     name="pharmacyName"
     type="text"
 >
-55. Loading States
+```
+
+## 55. Loading States
+
 
 Examples:
 
@@ -1318,7 +1535,9 @@ Loading Services
 Loading pharmacy services...
 Submission
 Submitting pharmacy registration...
-56. Sensitive Data Protection
+
+## 56. Sensitive Data Protection
+
 
 Sensitive information includes:
 
@@ -1336,16 +1555,21 @@ Expose sensitive data in URLs
 Log sensitive information to console
 Display unnecessary sensitive values
 Store documents insecurely
-57. Duplicate Submission Protection
+
+## 57. Duplicate Submission Protection
+
 
 The frontend should prevent:
 
+```text
 Double Click
       ↓
 Two Registration Requests
+```
 
 Recommended:
 
+```text
 Click Submit
       ↓
 Disable Button
@@ -1355,15 +1579,18 @@ Show Loading
 Send Request
       ↓
 Wait for Result
+```
 
 The backend must also provide duplicate protection.
 
-58. Unsaved Changes
+## 58. Unsaved Changes
+
 
 Because pharmacy registration contains many fields, leaving the page may result in data loss.
 
 The frontend may provide:
 
+```text
 ┌─────────────────────────────────────────────┐
 │ Leave registration?                         │
 │                                             │
@@ -1371,7 +1598,10 @@ The frontend may provide:
 │                                             │
 │ [ Stay ]                    [ Leave ]       │
 └─────────────────────────────────────────────┘
-59. API Integration
+```
+
+## 59. API Integration
+
 
 Pharmacy communication should be separated from the page UI.
 
@@ -1383,26 +1613,35 @@ Conceptual example:
 
 const pharmacyService = {
 
+```text
     createRegistration: async (payload) => {
         // Create pharmacy registration
     },
+```
 
+```text
     uploadDocument: async (file) => {
         // Upload verification document
     },
+```
 
+```text
     submitRegistration: async (payload) => {
         // Final registration submission
     },
+```
 
+```text
     getCities: async (governorateId) => {
         // Load cities
     }
+```
 
 };
 
 Architecture:
 
+```text
 Pharmacy HTML
       ↓
 Pharmacy Registration JS
@@ -1410,20 +1649,26 @@ Pharmacy Registration JS
 Pharmacy Service
       ↓
 ASP.NET Core API
-60. Pharmacy Inventory Boundary
+```
+
+## 60. Pharmacy Inventory Boundary
+
 
 The registration module should not contain the complete inventory management functionality.
 
 Registration:
 
+```text
 Configure Pharmacy
        ↓
 Enable Medicine Availability
        ↓
 Complete Registration
+```
 
 Later:
 
+```text
 Pharmacy Dashboard
        ↓
 Inventory Management
@@ -1435,15 +1680,18 @@ Update Quantity
 Update Availability
        ↓
 Remove / Disable Medicine
+```
 
 This keeps registration manageable and prevents a massive onboarding form.
 
-61. Additional Branch Boundary
+## 61. Additional Branch Boundary
+
 
 The first branch is created during registration.
 
 Additional branches belong to the Pharmacy Dashboard.
 
+```text
 Registration
      ↓
 Primary Branch
@@ -1457,10 +1705,14 @@ Manage Branches
      ├── Edit Branch
      ├── Disable Branch
      └── Update Hours
-62. Integration With Search & Discovery
+```
+
+## 62. Integration With Search & Discovery
+
 
 After approval, pharmacy information supports:
 
+```text
 Patient
    ↓
 Search Pharmacy
@@ -1472,10 +1724,12 @@ View Pharmacy
 View Branch
    ↓
 View Available Medicines
+```
 
 The registration frontend must therefore collect structured pharmacy and branch information.
 
-63. Integration With Location
+## 63. Integration With Location
+
 
 Pharmacy branch location supports:
 
@@ -1484,10 +1738,13 @@ Distance Calculation
 Delivery Radius
 Medicine Discovery
 Patient Navigation
-64. Integration With Provider Verification
+
+## 64. Integration With Provider Verification
+
 
 The overall relationship:
 
+```text
 Pharmacy Registration
         ↓
 Documents Submitted
@@ -1499,12 +1756,15 @@ Admin Review
 Approved
         ↓
 Pharmacy Activated
+```
 
 The registration module collects the information.
 
 The verification module determines approval.
 
-65. Integration With Authentication
+## 65. Integration With Authentication
+
+```text
                  Authentication
                        │
              ┌─────────┴──────────┐
@@ -1514,6 +1774,7 @@ The verification module determines approval.
              └──────────┬─────────┘
                         ↓
                 Pharmacy Registration
+```
 
 Pharmacy registration does not own:
 
@@ -1525,7 +1786,9 @@ Global Authorization
 
 These remain part of the shared Authentication/Authorization module.
 
-66. Complete Frontend Flow
+## 66. Complete Frontend Flow
+
+```text
                     ┌───────────────┐
                     │ Register      │
                     └──────┬────────┘
@@ -1587,7 +1850,10 @@ These remain part of the shared Authentication/Authorization module.
                     │ Pending       │
                     │ Verification  │
                     └───────────────┘
-67. Final Implementation Checklist
+```
+
+## 67. Final Implementation Checklist
+
 [ ] Pharmacy Account Page
 [ ] Pharmacist Information Page
 [ ] Pharmacy Information Page
@@ -1618,7 +1884,9 @@ These remain part of the shared Authentication/Authorization module.
 [ ] Duplicate Submission Protection
 [ ] API Service Integration
 [ ] Pending Verification State
-68. Ownership Boundary
+
+## 68. Ownership Boundary
+
 
 Alaa owns:
 
@@ -1641,7 +1909,9 @@ Global Authorization
 
 These belong to Mostafa's shared Authentication & Authorization module.
 
-69. Module Relationship
+## 69. Module Relationship
+
+```text
                     ┌───────────────────────┐
                     │ Authentication        │
                     │ Mostafa               │
@@ -1664,3 +1934,4 @@ These belong to Mostafa's shared Authentication & Authorization module.
                     │ Medicine Inventory    │
                     │ & Branch Management   │
                     └───────────────────────┘
+```
