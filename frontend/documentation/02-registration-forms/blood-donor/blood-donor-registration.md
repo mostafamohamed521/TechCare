@@ -1,4 +1,4 @@
-# Part 2 — Blood Donor Registration
+# — Blood Donor Registration
 
 **File:** `frontend/documentation/02-registration-forms/blood-donor/blood-donor-registration.md`  
 **Responsible:** Eman  
