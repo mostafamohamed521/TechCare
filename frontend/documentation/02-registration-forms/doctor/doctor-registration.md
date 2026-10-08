@@ -1,33 +1,36 @@
-Doctor Registration – Frontend Specification
+# Doctor Registration – Frontend Specification
 
-File: frontend/documentation/02-registration-forms/doctor/doctor-registration.md
-Responsible: Ahd
-Module: Doctor Registration
-Application: TechCare
+**File:** `frontend/documentation/02-registration-forms/doctor/doctor-registration.md`
+**Responsible:** Ahd
+**Module:** Doctor Registration
+**Application:** TechCare
 
-1. Overview
+---
+
+## 1. Overview
 
 The Doctor Registration module allows a doctor to create a professional TechCare account and submit the information required to become a healthcare provider on the platform.
 
 The registration process collects:
 
-Account information
-Personal information
-Professional information
-Medical specialization
-Services
-Pricing
-Location
-Availability
-Professional documents
-Final confirmation
+* Account information
+* Personal information
+* Professional information
+* Medical specialization
+* Services
+* Pricing
+* Location
+* Availability
+* Professional documents
+* Final confirmation
 
 The registration process is multi-step to keep the interface organized and easy to use.
 
-The doctor is not considered an active provider immediately after completing the registration form.
+The doctor is **not considered an active provider immediately after completing the registration form**.
 
 The complete process is:
 
+```text
 Doctor Registration
         ↓
 Registration Submitted
@@ -37,28 +40,35 @@ Pending Verification
 Admin Review
         ↓
 Approved / Rejected / Additional Information Required
-2. Ownership
+```
+
+---
+
+## 2. Ownership
 
 Ahd is responsible for the frontend Doctor Registration module.
 
-Ahd
- │
- ├── Doctor Registration Pages
- ├── Doctor Registration Forms
- ├── Doctor Form Validation
- ├── Doctor File Upload UI
- ├── Doctor Review Page
- ├── Doctor Registration Success Page
- ├── Doctor Registration JavaScript
- ├── Doctor Registration CSS
- └── Doctor Registration API Integration
+Ahd owns:
 
-Shared Authentication functionality is not duplicated here.
+* Doctor Registration Pages
+* Doctor Registration Forms
+* Doctor Form Validation
+* Doctor File Upload UI
+* Doctor Review Page
+* Doctor Registration Success Page
+* Doctor Registration JavaScript
+* Doctor Registration CSS
+* Doctor Registration API Integration
 
-3. Frontend Structure
+Shared Authentication functionality is **not duplicated** here.
+
+---
+
+## 3. Frontend Structure
 
 Recommended structure:
 
+```text
 frontend/
 │
 ├── pages/
@@ -88,7 +98,13 @@ frontend/
 │
 └── assets/
     └── doctor/
-4. Complete Registration Flow
+```
+
+---
+
+## 4. Complete Registration Flow
+
+```text
 ┌────────────────────────────┐
 │         Register            │
 └──────────────┬─────────────┘
@@ -140,26 +156,35 @@ frontend/
 ┌────────────────────────────┐
 │   Pending Verification      │
 └────────────────────────────┘
-5. Registration Steps
-Step	Page	File
-1	Doctor Account	doctor-register.html
-2	Personal Information	doctor-personal-info.html
-3	Professional Information	doctor-professional-info.html
-4	Specialization	doctor-specialization-info.html
-5	Services & Pricing	doctor-service-info.html
-6	Location & Availability	doctor-location-availability.html
-7	Documents	doctor-documents.html
-8	Review	doctor-review.html
-9	Success	doctor-registration-success.html
+```
+
+---
+
+## 5. Registration Steps
+
+| Step | Page                     | File                                |
+| ---- | ------------------------ | ----------------------------------- |
+| 1    | Doctor Account           | `doctor-register.html`              |
+| 2    | Personal Information     | `doctor-personal-info.html`         |
+| 3    | Professional Information | `doctor-professional-info.html`     |
+| 4    | Specialization           | `doctor-specialization-info.html`   |
+| 5    | Services & Pricing       | `doctor-service-info.html`          |
+| 6    | Location & Availability  | `doctor-location-availability.html` |
+| 7    | Documents                | `doctor-documents.html`             |
+| 8    | Review                   | `doctor-review.html`                |
+| 9    | Success                  | `doctor-registration-success.html`  |
 
 OTP verification is provided by the shared Authentication module.
 
-6. Registration Progress Indicator
+---
+
+## 6. Registration Progress Indicator
 
 Every step should display the user's progress.
 
 Example:
 
+```text
 ┌───────────────────────────────────────────────────────────────┐
 │ Doctor Registration                                           │
 │                                                               │
@@ -169,20 +194,29 @@ Example:
 │                                                               │
 │ Step 4 of 8                                                   │
 └───────────────────────────────────────────────────────────────┘
+```
 
 Status meanings:
 
-● Completed
-◉ Current
-○ Upcoming
-7. Step 1 – Doctor Account Registration
-Page
-frontend/pages/doctor/registration/doctor-register.html
-Purpose
+* `●` Completed
+* `◉` Current
+* `○` Upcoming
+
+---
+
+# 7. Step 1 – Doctor Account Registration
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-register.html`
+
+## Purpose
 
 Collects the basic credentials required to create the doctor's TechCare account.
 
-7.1 UI Sketch
+### UI Sketch
+
+```text
 ┌──────────────────────────────────────────────────┐
 │               Create Doctor Account              │
 ├──────────────────────────────────────────────────┤
@@ -207,43 +241,57 @@ Collects the basic credentials required to create the doctor's TechCare account.
 │                    [ Continue ]                  │
 │                                                  │
 └──────────────────────────────────────────────────┘
-8. Account Fields
-Field	Type	Required
-Full Name	Text	Yes
-Email Address	Email	Yes
-Phone Number	Tel	Yes
-Password	Password	Yes
-Confirm Password	Password	Yes
-Terms & Privacy Agreement	Checkbox	Yes
-9. Account Validation
-Full Name
+```
+
+---
+
+# 8. Account Fields
+
+| Field                     | Type     | Required |
+| ------------------------- | -------- | -------- |
+| Full Name                 | Text     | Yes      |
+| Email Address             | Email    | Yes      |
+| Phone Number              | Tel      | Yes      |
+| Password                  | Password | Yes      |
+| Confirm Password          | Password | Yes      |
+| Terms & Privacy Agreement | Checkbox | Yes      |
+
+---
+
+# 9. Account Validation
+
+## Full Name
 
 The frontend should verify:
 
-Required
-Valid characters
-Acceptable length
-No meaningless whitespace-only value
-Email
-Required
-Valid email format
-Normalized before submission
+* Required
+* Valid characters
+* Acceptable length
+* No meaningless whitespace-only value
+
+## Email
+
+* Required
+* Valid email format
+* Normalized before submission
 
 Backend remains responsible for checking whether the email already exists.
 
-Phone
-Required
-Valid format
-Accepted country format
+## Phone
+
+* Required
+* Valid format
+* Accepted country format
 
 Phone verification is performed through the shared Authentication module.
 
-Password
+## Password
 
 The password must follow the centralized TechCare password policy.
 
 Example UI:
 
+```text
 Password Requirements
 
 ✓ Minimum length
@@ -251,7 +299,11 @@ Password Requirements
 ✓ Lowercase letter
 ✓ Number
 ✓ Special character
-Confirm Password
+```
+
+## Confirm Password
+
+```text
 Password
 **************
 
@@ -259,10 +311,15 @@ Confirm Password
 **************
 
 ✓ Passwords match
-10. Shared OTP Verification
+```
+
+---
+
+# 10. Shared OTP Verification
 
 After account creation, the doctor is redirected into the shared verification process.
 
+```text
 Doctor Registration
         ↓
 Account Created
@@ -272,28 +329,41 @@ OTP Verification
 Verification Successful
         ↓
 Continue Registration
+```
 
-The Doctor module must not implement another OTP system.
+The Doctor module must **not implement another OTP system**.
 
 Shared documentation:
 
+```text
 frontend/documentation/01-authentication/otp-verification.md
+```
 
 After verification:
 
+```text
 OTP Verified
     ↓
 Doctor Registration
     ↓
 Personal Information
-11. Step 2 – Personal Information
-Page
-frontend/pages/doctor/registration/doctor-personal-info.html
-Purpose
+```
+
+---
+
+# 11. Step 2 – Personal Information
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-personal-info.html`
+
+## Purpose
 
 Collects the doctor's personal identity and contact details.
 
-11.1 UI Sketch
+### UI Sketch
+
+```text
 ┌─────────────────────────────────────────────────────┐
 │             Personal Information                    │
 ├─────────────────────────────────────────────────────┤
@@ -333,41 +403,57 @@ Collects the doctor's personal identity and contact details.
 │                                                     │
 │ [ Back ]                           [ Continue ]     │
 └─────────────────────────────────────────────────────┘
-12. Personal Information Fields
-Field	Type	Required
-First Name	Text	Yes
-Middle Name	Text	No
-Last Name	Text	Yes
-Date of Birth	Date	Yes
-Gender	Select/Radio	Yes
-National ID Number	Text	Yes
-Profile Picture	File	No
-Governorate	Select	Yes
-City	Select	Yes
-Detailed Address	Textarea	Yes
-13. Personal Information Validation
+```
+
+---
+
+# 12. Personal Information Fields
+
+| Field              | Type         | Required |
+| ------------------ | ------------ | -------- |
+| First Name         | Text         | Yes      |
+| Middle Name        | Text         | No       |
+| Last Name          | Text         | Yes      |
+| Date of Birth      | Date         | Yes      |
+| Gender             | Select/Radio | Yes      |
+| National ID Number | Text         | Yes      |
+| Profile Picture    | File         | No       |
+| Governorate        | Select       | Yes      |
+| City               | Select       | Yes      |
+| Detailed Address   | Textarea     | Yes      |
+
+---
+
+# 13. Personal Information Validation
 
 The frontend should validate:
 
-First Name → Required
-Last Name → Required
-Date of Birth → Valid date
-Gender → Valid selection
-National ID → Valid format
-Governorate → Required
-City → Required
-Address → Required
+* First Name → Required
+* Last Name → Required
+* Date of Birth → Valid date
+* Gender → Valid selection
+* National ID → Valid format
+* Governorate → Required
+* City → Required
+* Address → Required
 
 The backend must perform authoritative identity validation.
 
-14. Step 3 – Professional Information
-Page
-frontend/pages/doctor/registration/doctor-professional-info.html
-Purpose
+---
+
+# 14. Step 3 – Professional Information
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-professional-info.html`
+
+## Purpose
 
 Collects the doctor's professional and academic information.
 
-14.1 UI Sketch
+### UI Sketch
+
+```text
 ┌─────────────────────────────────────────────────────┐
 │             Professional Information                │
 ├─────────────────────────────────────────────────────┤
@@ -376,7 +462,7 @@ Collects the doctor's professional and academic information.
 │ [_______________________________________________]   │
 │                                                     │
 │ Medical Qualification *                             │
-│ [ Select Qualification ▼ ]                           │
+│ [ Select Qualification ▼ ]                          │
 │                                                     │
 │ University / Institution *                          │
 │ [_______________________________________________]   │
@@ -384,7 +470,7 @@ Collects the doctor's professional and academic information.
 │ Graduation Year *                                   │
 │ [____________]                                      │
 │                                                     │
-│ Professional License Number *                      │
+│ Professional License Number *                       │
 │ [_______________________________________________]   │
 │                                                     │
 │ Years of Experience *                               │
@@ -398,37 +484,59 @@ Collects the doctor's professional and academic information.
 │                                                     │
 │ [ Back ]                           [ Continue ]     │
 └─────────────────────────────────────────────────────┘
-15. Professional Fields
-Field	Type	Required
-Professional Title	Text/Select	Yes
-Medical Qualification	Select	Yes
-University / Institution	Text	Yes
-Graduation Year	Number	Yes
-Professional License Number	Text	Yes
-Years of Experience	Number	Yes
-Professional Bio	Textarea	Yes
-16. Professional Validation
-Graduation Year
+```
+
+---
+
+# 15. Professional Fields
+
+| Field                       | Type        | Required |
+| --------------------------- | ----------- | -------- |
+| Professional Title          | Text/Select | Yes      |
+| Medical Qualification       | Select      | Yes      |
+| University / Institution    | Text        | Yes      |
+| Graduation Year             | Number      | Yes      |
+| Professional License Number | Text        | Yes      |
+| Years of Experience         | Number      | Yes      |
+| Professional Bio            | Textarea    | Yes      |
+
+---
+
+# 16. Professional Validation
+
+## Graduation Year
 
 The frontend should ensure:
 
-Valid year
-Not a future year
-Reasonable range
-Experience
-Must be a non-negative number
-License Number
-Required
-Valid format
-Backend uniqueness verification
-17. Step 4 – Specialization
-Page
-frontend/pages/doctor/registration/doctor-specialization-info.html
-Purpose
+* Valid year
+* Not a future year
+* Reasonable range
+
+## Experience
+
+Must be a non-negative number.
+
+## License Number
+
+* Required
+* Valid format
+* Backend uniqueness verification
+
+---
+
+# 17. Step 4 – Specialization
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-specialization-info.html`
+
+## Purpose
 
 Allows the doctor to identify their medical specialty and areas of practice.
 
-17.1 UI Sketch
+### UI Sketch
+
+```text
 ┌──────────────────────────────────────────────────┐
 │             Medical Specialization               │
 ├──────────────────────────────────────────────────┤
@@ -456,39 +564,55 @@ Allows the doctor to identify their medical specialty and areas of practice.
 │                                                  │
 │ [ Back ]                         [ Continue ]    │
 └──────────────────────────────────────────────────┘
-18. Specialization Fields
-Field	Type	Required
-Main Specialty	Select	Yes
-Sub-Specialty	Select	No
-Areas of Expertise	Multi-select	Yes
-Specialty Description	Textarea	No
-19. Specialty Examples
+```
+
+---
+
+# 18. Specialization Fields
+
+| Field                 | Type         | Required |
+| --------------------- | ------------ | -------- |
+| Main Specialty        | Select       | Yes      |
+| Sub-Specialty         | Select       | No       |
+| Areas of Expertise    | Multi-select | Yes      |
+| Specialty Description | Textarea     | No       |
+
+---
+
+# 19. Specialty Examples
 
 Depending on the application's approved medical taxonomy, specialties may include:
 
-Cardiology
-Dermatology
-Neurology
-Orthopedics
-Pediatrics
-Ophthalmology
-Dentistry
-General Practice
-Internal Medicine
-Gynecology
-ENT
-Psychiatry
+* Cardiology
+* Dermatology
+* Neurology
+* Orthopedics
+* Pediatrics
+* Ophthalmology
+* Dentistry
+* General Practice
+* Internal Medicine
+* Gynecology
+* ENT
+* Psychiatry
 
 The exact production list should come from the backend/business configuration rather than being duplicated as uncontrolled frontend values.
 
-20. Step 5 – Services & Pricing
-Page
-frontend/pages/doctor/registration/doctor-service-info.html
-Purpose
+---
+
+# 20. Step 5 – Services & Pricing
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-service-info.html`
+
+## Purpose
 
 Defines the healthcare services the doctor provides and the associated pricing.
 
-20.1 UI Sketch
+### UI Sketch
+
+```text
 ┌────────────────────────────────────────────────────┐
 │               Services & Pricing                   │
 ├────────────────────────────────────────────────────┤
@@ -496,7 +620,7 @@ Defines the healthcare services the doctor provides and the associated pricing.
 │ Service Type *                                     │
 │ [ Medical Consultation ▼ ]                         │
 │                                                    │
-│ Consultation / Service Price *                    │
+│ Consultation / Service Price *                     │
 │ [____________________] EGP                         │
 │                                                    │
 │ Price Per Kilometer                               │
@@ -524,20 +648,30 @@ Defines the healthcare services the doctor provides and the associated pricing.
 │                                                    │
 │ [ Back ]                          [ Continue ]     │
 └────────────────────────────────────────────────────┘
-21. Services & Pricing Fields
-Field	Type	Required
-Service Type	Select	Yes
-Service Price	Number	Yes
-Price Per Kilometer	Number	Conditional
-Service Radius	Number	Conditional
-Consultation Duration	Number	Yes
-Additional Fee	Number	No
-Currency	Select	Yes
-Services Offered	Multi-select	Yes
-22. Pricing Preview
+```
+
+---
+
+# 21. Services & Pricing Fields
+
+| Field                 | Type         | Required    |
+| --------------------- | ------------ | ----------- |
+| Service Type          | Select       | Yes         |
+| Service Price         | Number       | Yes         |
+| Price Per Kilometer   | Number       | Conditional |
+| Service Radius        | Number       | Conditional |
+| Consultation Duration | Number       | Yes         |
+| Additional Fee        | Number       | No          |
+| Currency              | Select       | Yes         |
+| Services Offered      | Multi-select | Yes         |
+
+---
+
+# 22. Pricing Preview
 
 The frontend may provide an estimated preview:
 
+```text
 Base Service Price
         +
 Travel Fee
@@ -545,9 +679,11 @@ Travel Fee
 Additional Fee
         =
 Estimated Service Cost
+```
 
 Example:
 
+```text
 ┌──────────────────────────────────┐
 │ Pricing Preview                  │
 ├──────────────────────────────────┤
@@ -558,40 +694,52 @@ Example:
 │ Estimated Total                  │
 │                    500 EGP       │
 └──────────────────────────────────┘
+```
 
 These values are examples only.
 
 The backend remains responsible for calculating and validating the final amount.
 
-23. Home Visit Option
+---
+
+# 23. Home Visit Option
 
 The doctor may offer home consultations.
 
 Example:
 
+```text
 Home Visit Availability
 
 (●) Yes
 ( ) No
+```
 
 When enabled, the UI can expose:
 
-Price Per Kilometer
-Service Radius
-Location Requirements
+* Price Per Kilometer
+* Service Radius
+* Location Requirements
 
 When disabled, unnecessary home-visit fields may be hidden or disabled.
 
 This should be handled clearly in the UI.
 
-24. Step 6 – Location & Availability
-Page
-frontend/pages/doctor/registration/doctor-location-availability.html
-Purpose
+---
+
+# 24. Step 6 – Location & Availability
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-location-availability.html`
+
+## Purpose
 
 Collects the doctor's practice/service location and available working schedule.
 
-24.1 UI Sketch
+### UI Sketch
+
+```text
 ┌────────────────────────────────────────────────────────┐
 │ Location & Availability                                │
 ├────────────────────────────────────────────────────────┤
@@ -631,19 +779,29 @@ Collects the doctor's practice/service location and available working schedule.
 │                                                        │
 │ [ Back ]                              [ Continue ]     │
 └────────────────────────────────────────────────────────┘
-25. Location Fields
-Field	Type	Required
-Governorate	Select	Yes
-City	Select	Yes
-Detailed Address	Textarea	Yes
-Latitude	Number	Conditional
-Longitude	Number	Conditional
-Use Current Location	Button	No
-Home Visits	Radio	Yes
-26. Location Interaction
+```
+
+---
+
+# 25. Location Fields
+
+| Field                | Type     | Required    |
+| -------------------- | -------- | ----------- |
+| Governorate          | Select   | Yes         |
+| City                 | Select   | Yes         |
+| Detailed Address     | Textarea | Yes         |
+| Latitude             | Number   | Conditional |
+| Longitude            | Number   | Conditional |
+| Use Current Location | Button   | No          |
+| Home Visits          | Radio    | Yes         |
+
+---
+
+# 26. Location Interaction
 
 The frontend can use browser geolocation:
 
+```text
 [ Use Current Location ]
              ↓
       Browser Permission
@@ -655,23 +813,31 @@ The frontend can use browser geolocation:
         Form State
              ↓
         Backend API
+```
 
 The frontend must handle:
 
-Permission Granted
-Permission Denied
-Location Unavailable
-Request Timeout
-Unsupported Browser
+* Permission Granted
+* Permission Denied
+* Location Unavailable
+* Request Timeout
+* Unsupported Browser
 
 Example:
 
+```text
 ⚠ We could not access your current location.
+
 Please enter your location manually.
-27. Availability Schedule
+```
+
+---
+
+# 27. Availability Schedule
 
 Example:
 
+```text
 Working Days:
 
 ☑ Saturday
@@ -687,9 +853,11 @@ Start Time:
 
 End Time:
 05:00 PM
+```
 
 Validation rules:
 
+```text
 At least one working day
         +
 Valid start time
@@ -697,14 +865,23 @@ Valid start time
 Valid end time
         +
 Start Time < End Time
-28. Step 7 – Professional Documents
-Page
-frontend/pages/doctor/registration/doctor-documents.html
-Purpose
+```
+
+---
+
+# 28. Step 7 – Professional Documents
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-documents.html`
+
+## Purpose
 
 Collects documents used to verify the doctor's professional identity and qualifications.
 
-28.1 UI Sketch
+### UI Sketch
+
+```text
 ┌────────────────────────────────────────────────────────┐
 │              Professional Documents                    │
 ├────────────────────────────────────────────────────────┤
@@ -715,7 +892,7 @@ Collects documents used to verify the doctor's professional identity and qualifi
 │ National ID - Back *                                   │
 │ [ Choose File ]                                        │
 │                                                        │
-│ Medical Degree / Graduation Certificate *             │
+│ Medical Degree / Graduation Certificate *              │
 │ [ Choose File ]                                        │
 │                                                        │
 │ Professional Practice License *                        │
@@ -731,21 +908,30 @@ Collects documents used to verify the doctor's professional identity and qualifi
 │                                                        │
 │ [ Back ]                              [ Continue ]     │
 └────────────────────────────────────────────────────────┘
-29. Required Documents
-Document	Required
-National ID Front	Yes
-National ID Back	Yes
-Medical Degree / Graduation Certificate	Yes
-Professional Practice License	Yes
-Internship / Training Certificate	Optional / Business Rule
-Additional Supporting Document	No
+```
+
+---
+
+# 29. Required Documents
+
+| Document                                | Required                 |
+| --------------------------------------- | ------------------------ |
+| National ID Front                       | Yes                      |
+| National ID Back                        | Yes                      |
+| Medical Degree / Graduation Certificate | Yes                      |
+| Professional Practice License           | Yes                      |
+| Internship / Training Certificate       | Optional / Business Rule |
+| Additional Supporting Document          | No                       |
 
 Required/optional status must follow the final backend verification rules.
 
-30. File Upload Component
+---
+
+# 30. File Upload Component
 
 Each document upload should provide:
 
+```text
 Choose File
        ↓
 Validate
@@ -755,9 +941,11 @@ Preview / Filename
 Upload
        ↓
 Success / Error
+```
 
 Example:
 
+```text
 ┌────────────────────────────────────────────┐
 │ medical_degree.pdf                         │
 │ 3.2 MB                                     │
@@ -765,44 +953,58 @@ Example:
 │ ✓ Upload completed                         │
 │                              [ Remove ]    │
 └────────────────────────────────────────────┘
+```
 
 During upload:
 
+```text
 Uploading...
 ██████████████░░░░
-31. File Validation
+```
+
+---
+
+# 31. File Validation
 
 The frontend should validate:
 
-File Selected
-File Type
-File Extension
-File Size
+* File Selected
+* File Type
+* File Extension
+* File Size
 
-Example:
+Supported formats:
 
-Supported:
-PDF
-JPG
-JPEG
-PNG
+* PDF
+* JPG
+* JPEG
+* PNG
 
 Example error:
 
+```text
 ⚠ Unsupported file type.
 
 Please upload a PDF, JPG, JPEG, or PNG file.
+```
 
 The backend must perform the final validation.
 
-32. Step 8 – Review & Submit
-Page
-frontend/pages/doctor/registration/doctor-review.html
-Purpose
+---
+
+# 32. Step 8 – Review & Submit
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-review.html`
+
+## Purpose
 
 Provides a complete summary before final submission.
 
-32.1 UI Sketch
+### UI Sketch
+
+```text
 ┌──────────────────────────────────────────────────────────┐
 │               Review Doctor Registration                 │
 ├──────────────────────────────────────────────────────────┤
@@ -821,48 +1023,55 @@ Provides a complete summary before final submission.
 │                                                          │
 │ PROFESSIONAL INFORMATION                                 │
 │ Qualification: Bachelor of Medicine                      │
-│ University: Example University                            │
+│ University: Example University                           │
 │ Experience: 7 Years                                      │
 │ License: *************                                   │
 │                                             [ Edit ]     │
 │                                                          │
 │ SPECIALIZATION                                           │
-│ Specialty: Orthopedics                                  │
+│ Specialty: Orthopedics                                   │
 │ Expertise: Trauma, Joint Care                            │
 │                                             [ Edit ]     │
 │                                                          │
 │ SERVICES                                                 │
-│ Medical Consultation                                    │
+│ Medical Consultation                                     │
 │ Home Visit                                               │
 │                                             [ Edit ]     │
 │                                                          │
 │ LOCATION & AVAILABILITY                                  │
-│ Governorate: Dakahlia                                   │
-│ City: Mansoura                                          │
-│ Home Visits: Yes                                        │
+│ Governorate: Dakahlia                                    │
+│ City: Mansoura                                           │
+│ Home Visits: Yes                                         │
 │                                             [ Edit ]     │
 │                                                          │
 │ DOCUMENTS                                                │
-│ ✓ National ID Front                                     │
-│ ✓ National ID Back                                      │
-│ ✓ Medical Degree                                        │
-│ ✓ Practice License                                      │
+│ ✓ National ID Front                                      │
+│ ✓ National ID Back                                       │
+│ ✓ Medical Degree                                         │
+│ ✓ Practice License                                       │
 │                                             [ Edit ]     │
 │                                                          │
 │ [ ] I confirm that all information is correct.           │
 │                                                          │
 │ [ Back ]                     [ Submit Registration ]     │
 └──────────────────────────────────────────────────────────┘
-33. Edit Navigation
+```
 
-Every section should have an Edit button.
+---
+
+# 33. Edit Navigation
+
+Every section should have an **Edit** button.
 
 Example:
 
+```text
 Professional Information                    [ Edit ]
+```
 
 Clicking Edit should return the user to the corresponding step:
 
+```text
 Review
   ↓
 Edit Professional Information
@@ -872,62 +1081,91 @@ Professional Page
 Save
   ↓
 Review
+```
 
 The already entered information must remain available.
 
-34. Sensitive Information
+---
+
+# 34. Sensitive Information
 
 Sensitive information must be masked where practical.
 
 Example:
 
+```text
 National ID:
 298***********
 
 Professional License:
 DOC-****-9381
+```
 
 Documents should be represented by filename/status rather than unnecessarily exposing their contents.
 
-35. Final Confirmation
+---
+
+# 35. Final Confirmation
 
 Before submission:
 
+```text
 [ ] I confirm that all information provided is accurate.
+```
 
 The Submit button remains disabled until the confirmation is selected.
 
 Example:
 
+```text
 ☐ I confirm that all information is correct.
 
 [ Submit Registration ]
+```
 
 After checking:
 
+```text
 ☑ I confirm that all information is correct.
 
 [ Submit Registration ]
-36. Final Submission State
+```
+
+---
+
+# 36. Final Submission State
 
 Normal:
 
+```text
 [ Submit Registration ]
+```
 
 Loading:
 
+```text
 [ ⏳ Submitting... ]
+```
 
 During submission:
 
+```text
 Submit Button → Disabled
+```
 
 This prevents duplicate requests.
 
-37. Registration Success Page
-Page
-frontend/pages/doctor/registration/doctor-registration-success.html
-37.1 UI Sketch
+---
+
+# 37. Registration Success Page
+
+## Page
+
+`frontend/pages/doctor/registration/doctor-registration-success.html`
+
+### UI Sketch
+
+```text
 ┌──────────────────────────────────────────────────┐
 │                                                  │
 │                     ✓                            │
@@ -948,32 +1186,41 @@ frontend/pages/doctor/registration/doctor-registration-success.html
 │                [ Go to Login ]                  │
 │                                                  │
 └──────────────────────────────────────────────────┘
+```
 
 The displayed Registration ID is illustrative.
 
-38. Post-Registration Behavior
+---
+
+# 38. Post-Registration Behavior
 
 After successful registration:
 
+```text
 Registration Submitted
         ↓
 Pending Verification
         ↓
 Go to Login
+```
 
-The doctor must not automatically receive active provider access.
+The doctor must **not automatically receive active provider access**.
 
 The backend determines whether the doctor is:
 
-Approved
-Rejected
-Pending
-Additional Information Required
-Suspended
-39. Verification Status UI
+* Approved
+* Rejected
+* Pending
+* Additional Information Required
+* Suspended
+
+---
+
+# 39. Verification Status UI
 
 Example:
 
+```text
 ┌──────────────────────────────────────┐
 │ Professional Verification            │
 │                                      │
@@ -984,12 +1231,17 @@ Example:
 │                                      │
 │ Status: PENDING_VERIFICATION         │
 └──────────────────────────────────────┘
-40. Form State
+```
+
+---
+
+# 40. Form State
 
 The entire registration process should maintain a consistent state.
 
 Conceptual structure:
 
+```javascript
 const doctorRegistration = {
     account: {},
     personal: {},
@@ -1000,11 +1252,13 @@ const doctorRegistration = {
     availability: {},
     documents: {}
 };
+```
 
 Each step updates its own section.
 
 Example:
 
+```text
 Personal Page
       ↓
 personal{}
@@ -1020,21 +1274,29 @@ specialization{}
 Services Page
       ↓
 services{}
+```
 
 Final submission:
 
+```text
 All Sections
       ↓
 Complete Registration Payload
       ↓
 Backend API
-41. Validation Architecture
+```
+
+---
+
+# 41. Validation Architecture
 
 Validation should exist at two levels:
 
+```text
 Frontend Validation
         +
 Backend Validation
+```
 
 Frontend validation is for user experience.
 
@@ -1042,48 +1304,81 @@ Backend validation is authoritative.
 
 The frontend must never assume that hiding a field or disabling a button provides security.
 
-42. Validation Examples
-Missing Specialty
+---
+
+# 42. Validation Examples
+
+### Missing Specialty
+
+```text
 ⚠ Please select your medical specialty.
-Missing License
+```
+
+### Missing License
+
+```text
 ⚠ Professional license number is required.
-Invalid Experience
+```
+
+### Invalid Experience
+
+```text
 ⚠ Years of experience cannot be negative.
-Invalid Schedule
+```
+
+### Invalid Schedule
+
+```text
 ⚠ End time must be later than start time.
-Missing Document
+```
+
+### Missing Document
+
+```text
 ⚠ Please upload your professional practice license.
-43. API Validation Error Handling
+```
+
+---
+
+# 43. API Validation Error Handling
 
 When the backend returns a field-specific error, the frontend should display it next to that field.
 
 Example backend response:
 
+```text
 professionalLicenseNumber:
 "This license number is already registered."
+```
 
 Frontend:
 
+```text
 Professional Practice License Number *
 
 [ DOC-123456________________ ]
 
 ⚠ This license number is already registered.
-44. Global Error Handling
+```
+
+---
+
+# 44. Global Error Handling
 
 The frontend should also handle:
 
-Network Error
-Server Error
-Authentication Error
-Validation Error
-Upload Error
-Duplicate Data
-Expired Session
-Unexpected Error
+* Network Error
+* Server Error
+* Authentication Error
+* Validation Error
+* Upload Error
+* Duplicate Data
+* Expired Session
+* Unexpected Error
 
 Example:
 
+```text
 ┌────────────────────────────────────────────┐
 │ Unable to submit registration.             │
 │                                            │
@@ -1091,30 +1386,44 @@ Example:
 │                                            │
 │               [ Try Again ]                │
 └────────────────────────────────────────────┘
-45. Step Navigation
+```
+
+---
+
+# 45. Step Navigation
 
 Every step should provide:
 
+```text
 [ Back ]                     [ Continue ]
+```
 
 Review:
 
+```text
 [ Back ]                [ Submit Registration ]
+```
 
 Navigation rules:
 
+```text
 Continue
    ↓
 Validate Current Step
    ↓
 Valid → Next Step
 Invalid → Stay + Show Errors
-46. Preserving Form Data
+```
+
+---
+
+# 46. Preserving Form Data
 
 Moving between steps must not erase previous information.
 
 Example:
 
+```text
 Personal
    ↓
 Professional
@@ -1124,20 +1433,24 @@ Specialization
 Back
    ↓
 Professional
+```
 
 The previously entered professional information should still appear.
 
-47. Responsive Design
+---
+
+# 47. Responsive Design
 
 The Doctor Registration UI must work on:
 
-Desktop
-Laptop
-Tablet
-Mobile
+* Desktop
+* Laptop
+* Tablet
+* Mobile
 
-Desktop:
+### Desktop
 
+```text
 ┌─────────────────────────────────────────────────┐
 │             Doctor Registration                 │
 │                                                 │
@@ -1145,9 +1458,11 @@ Desktop:
 │ [_____________]           [_____________]       │
 │                                                 │
 └─────────────────────────────────────────────────┘
+```
 
-Mobile:
+### Mobile
 
+```text
 ┌────────────────────────────┐
 │ Doctor Registration        │
 │                            │
@@ -1159,24 +1474,28 @@ Mobile:
 │                            │
 │ [ Continue ]               │
 └────────────────────────────┘
+```
 
 No normal mobile screen should require horizontal scrolling.
 
-48. Accessibility
+---
+
+# 48. Accessibility
 
 The registration frontend must support:
 
-Semantic HTML
-Associated Labels
-Keyboard Navigation
-Visible Focus
-Accessible Buttons
-Readable Error Messages
-Accessible File Inputs
-Sufficient Contrast
+* Semantic HTML
+* Associated Labels
+* Keyboard Navigation
+* Visible Focus
+* Accessible Buttons
+* Readable Error Messages
+* Accessible File Inputs
+* Sufficient Contrast
 
 Example:
 
+```html
 <label for="specialty">
     Medical Specialty
 </label>
@@ -1184,10 +1503,15 @@ Example:
 <select id="specialty" name="specialty">
     <option value="">Select Specialty</option>
 </select>
-49. Input Structure
+```
+
+---
+
+# 49. Input Structure
 
 A consistent input pattern should be used:
 
+```text
 Label
   ↓
 Input
@@ -1195,9 +1519,11 @@ Input
 Helper Text
   ↓
 Error Message
+```
 
 Example:
 
+```text
 Professional License Number *
 
 [____________________________]
@@ -1205,49 +1531,72 @@ Professional License Number *
 Enter your official professional license number.
 
 ⚠ This license number is already registered.
-50. Loading States
+```
 
-Examples:
+---
 
-Loading Specialties
+# 50. Loading States
+
+## Loading Specialties
+
+```text
 Medical Specialty
 
 [ Loading specialties... ]
-Loading Cities
+```
+
+## Loading Cities
+
+```text
 City
 
 [ Loading cities... ]
-Uploading Document
+```
+
+## Uploading Document
+
+```text
 Uploading medical_degree.pdf...
 
 ████████████░░░░░░
-Submission
+```
+
+## Submission
+
+```text
 Submitting your registration...
-51. Security Rules
+```
+
+---
+
+# 51. Security Rules
 
 The frontend must avoid exposing sensitive information unnecessarily.
 
 Sensitive data includes:
 
-National ID
-Professional License
-Uploaded Documents
-Personal Address
-Location Coordinates
+* National ID
+* Professional License
+* Uploaded Documents
+* Personal Address
+* Location Coordinates
 
 Do not:
 
-Put sensitive values in URLs
-Log sensitive values to console
-Expose them in unnecessary frontend messages
-Store them insecurely
+* Put sensitive values in URLs
+* Log sensitive values to console
+* Expose them in unnecessary frontend messages
+* Store them insecurely
 
 The backend must enforce authorization and verification.
 
-52. Duplicate Submission Protection
+---
+
+# 52. Duplicate Submission Protection
 
 The following should prevent duplicate submissions:
 
+```text
 Submit
   ↓
 Disable Button
@@ -1257,15 +1606,19 @@ Show Loading
 Send Request
   ↓
 Wait for Response
+```
 
 Server-side duplicate protection should also exist.
 
-53. Unsaved Changes Warning
+---
+
+# 53. Unsaved Changes Warning
 
 For long forms, the frontend may warn users before leaving an incomplete registration.
 
 Example:
 
+```text
 ┌────────────────────────────────────────────┐
 │ Leave registration?                        │
 │                                            │
@@ -1273,16 +1626,23 @@ Example:
 │                                            │
 │ [ Stay ]                    [ Leave ]      │
 └────────────────────────────────────────────┘
-54. API Service
+```
+
+---
+
+# 54. API Service
 
 Doctor API communication should be separated from UI logic.
 
-File:
+## File
 
+```text
 frontend/js/services/doctor.service.js
+```
 
 Conceptual structure:
 
+```javascript
 const doctorService = {
 
     createRegistration: async (payload) => {
@@ -1298,9 +1658,11 @@ const doctorService = {
     }
 
 };
+```
 
 Recommended architecture:
 
+```text
 Doctor HTML
      ↓
 Doctor Registration JS
@@ -1308,7 +1670,13 @@ Doctor Registration JS
 Doctor Service
      ↓
 ASP.NET Core API
-55. Registration Lifecycle
+```
+
+---
+
+# 55. Registration Lifecycle
+
+```text
 DRAFT
   ↓
 ACCOUNT_CREATED
@@ -1326,13 +1694,17 @@ PENDING_VERIFICATION
 ┌───────────────┬─────────────────────┐
 ↓               ↓                     ↓
 APPROVED      REJECTED      ADDITIONAL_INFO_REQUIRED
+```
 
 The actual state values must follow the backend API contract.
 
-56. Integration With Authentication
+---
+
+# 56. Integration With Authentication
 
 Doctor Registration depends on the shared Authentication module:
 
+```text
             Authentication
                   │
         ┌─────────┴─────────┐
@@ -1342,19 +1714,24 @@ Account Creation       OTP Verification
         └─────────┬─────────┘
                   ↓
           Doctor Registration
+```
 
 Doctor Registration does not own:
 
-Login
-OTP System
-Password Recovery
-Token Management
-Role Selection
-Global Authorization
-57. Integration With Provider Verification
+* Login
+* OTP System
+* Password Recovery
+* Token Management
+* Role Selection
+* Global Authorization
+
+---
+
+# 57. Integration With Provider Verification
 
 Doctor Registration connects directly to Provider Verification after submission.
 
+```text
 Doctor Registration
         ↓
 Documents Submitted
@@ -1364,25 +1741,31 @@ Provider Verification
 Admin Review
         ↓
 Verification Result
+```
 
 A doctor account can therefore exist while the professional provider status is still pending.
 
-58. Integration With Location
+---
+
+# 58. Integration With Location
 
 Location information will later support:
 
-Nearby Doctor Search
-Distance Calculation
-Home Visit Availability
-Travel Fee Calculation
-Patient Discovery
+* Nearby Doctor Search
+* Distance Calculation
+* Home Visit Availability
+* Travel Fee Calculation
+* Patient Discovery
 
 Therefore the frontend should collect location data in a consistent and structured way.
 
-59. Integration With Doctor Dashboard
+---
+
+# 59. Integration With Doctor Dashboard
 
 After verification:
 
+```text
 Registration
       ↓
 Verification
@@ -1390,12 +1773,17 @@ Verification
 Approved
       ↓
 Doctor Dashboard
+```
 
 The Doctor Dashboard is outside the scope of this registration file.
 
 The registration module is responsible only for collecting and submitting the data required to enter that lifecycle.
 
-60. Complete UI Flow
+---
+
+# 60. Complete UI Flow
+
+```text
                     ┌───────────────┐
                     │ Register      │
                     └───────┬───────┘
@@ -1454,7 +1842,13 @@ The registration module is responsible only for collecting and submitting the da
                     │ Pending       │
                     │ Verification  │
                     └───────────────┘
-61. Final Implementation Checklist
+```
+
+---
+
+# 61. Final Implementation Checklist
+
+```text
 [ ] Doctor Account Page
 [ ] Personal Information Page
 [ ] Professional Information Page
@@ -1485,25 +1879,40 @@ The registration module is responsible only for collecting and submitting the da
 [ ] Pending Verification UI
 [ ] Authentication Integration
 [ ] Provider Verification Integration
-62. Ownership Boundary
+```
+
+---
+
+# 62. Ownership Boundary
 
 Ahd owns:
 
+```text
 frontend/documentation/02-registration-forms/doctor/
+```
 
 and the Doctor Registration implementation:
 
+```text
 frontend/pages/doctor/registration/
 frontend/css/doctor/doctor-registration.css
 frontend/js/pages/doctor/doctor-registration.js
 frontend/js/services/doctor.service.js
+```
 
-Ahd does not own the shared Authentication implementation.
+Ahd does **not** own the shared Authentication implementation.
 
 Shared Authentication remains under Mostafa:
 
+```text
 frontend/documentation/01-authentication/
-63. Module Relationship
+```
+
+---
+
+# 63. Module Relationship
+
+```text
                     ┌──────────────────────┐
                     │ Authentication       │
                     │ Mostafa              │
@@ -1521,3 +1930,17 @@ frontend/documentation/01-authentication/
                     ┌──────────────────────┐
                     │ Doctor Dashboard     │
                     └──────────────────────┘
+```
+
+---
+
+## Document Ownership
+
+**Responsible:** Ahd
+**Application:** TechCare
+**Module:** Doctor Registration
+**Documentation Path:**
+
+```text
+frontend/documentation/02-registration-forms/doctor/doctor-registration.md
+```
